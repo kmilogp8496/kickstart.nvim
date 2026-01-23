@@ -568,6 +568,7 @@ require('lazy').setup({
         },
         ts_ls = {},
         vue_ls = {},
+        docker_compose_language_service = {},
 
         markdownlint = {},
       }

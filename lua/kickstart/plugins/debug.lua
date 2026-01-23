@@ -23,6 +23,7 @@ return {
 
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
+    'xdebug/vscode-php-debug',
   },
   keys = {
     -- Basic debugging keymaps, feel free to change to your liking!
@@ -95,6 +96,7 @@ return {
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
+        'php',
       },
     }
 
@@ -142,6 +144,25 @@ return {
         -- On Windows delve must be run attached or it crashes.
         -- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
         detached = vim.fn.has 'win32' == 0,
+      },
+    }
+
+    -- Php debug configuration
+    dap.configurations.php = {
+      {
+        type = 'php',
+        request = 'launch',
+        name = 'Listen for Xdebug',
+        port = 9003,
+      },
+      {
+        type = 'php',
+        request = 'launch',
+        name = 'Listen for Xdebug (Docker)',
+        port = 9003,
+        pathMappings = {
+          ['/var/www/html'] = '${workspaceFolder}',
+        },
       },
     }
   end,
