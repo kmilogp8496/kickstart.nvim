@@ -99,7 +99,7 @@ vim.g.have_nerd_font = false
 --  For more options, you can see `:help option-list`
 
 -- Make line numbers default
--- vim.o.number = true
+vim.o.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
 vim.o.relativenumber = true
@@ -759,23 +759,22 @@ require('lazy').setup({
       signature = { enabled = true },
     },
   },
-
   {
-    'rose-pine/neovim',
-    name = 'rose-pine',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
+    'folke/tokyonight.nvim',
+    lazy = false,
+    priority = 1000,
+    opts = {},
     config = function()
       ---@diagnostic disable-next-line: missing-fields
-      require('rose-pine').setup {
-        styles = {
-          comments = { italic = false }, -- Disable italics in comments
-        },
+      require('tokyonight').setup {
+        -- styles = {
+        --   comments = { italic = false }, -- Disable italics in comments
+        -- },
       }
 
-      vim.cmd.colorscheme 'rose-pine'
+      vim.cmd.colorscheme 'tokyonight'
     end,
   },
-
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
