@@ -554,16 +554,17 @@ require('lazy').setup({
       local servers = {
         intelephense = {},
         lua_ls = {
-          -- cmd = { ... },
-          -- filetypes = { ... },
-          -- capabilities = {},
           settings = {
             Lua = {
               completion = {
                 callSnippet = 'Replace',
               },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
+              runtime = { version = 'LuaJIT' },
+              diagnostics = { globals = { 'vim' } },
+              workspace = {
+                library = vim.api.nvim_get_runtime_file('', true),
+                checkThirdParty = false,
+              },
             },
           },
         },
@@ -589,9 +590,10 @@ require('lazy').setup({
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
+        'stylua',
         'prettierd',
         'prettier',
+        'eslint_d',
         'php-cs-fixer',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -647,6 +649,9 @@ require('lazy').setup({
         lua = { 'stylua' },
         markdown = { 'prettierd', 'prettier', stop_after_first = true },
         php = { 'php-cs-fixer' },
+        vue = { 'eslint_d', 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'eslint_d', 'prettierd', 'prettier', stop_after_first = true },
+        javascript = { 'eslint_d', 'prettierd', 'prettier', stop_after_first = true },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
